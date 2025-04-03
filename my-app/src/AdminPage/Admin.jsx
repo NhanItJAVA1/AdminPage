@@ -33,21 +33,52 @@ function Admin() {
                     <br />
                     <a href="#">Link 3</a>
                 </div>
+                <div className="header">My Header</div>
                 <div className="content">
-                    <div className="header">My Header</div>
                     <div className='overview'>
-                        {data.map(item => (
-                            <div className="card" key={item.id}>
-                                <div className="left">
-                                    <h3>{item.name}</h3>
-                                    <h2>{item.dollars}</h2>
-                                    <h5>{item.percent}%</h5>
+                        {data.map((item, index) => {
+                            let borderColor;
+                            let backgroundColor;
+                            if (index === 0) {
+                                borderColor = '#F44B87FF';
+                                backgroundColor = '#FEF0F5FF';
+                            } else if (index === 1 || index === 2) {
+                                borderColor = '#2B80FFFF';
+                                backgroundColor = '#F0F6FFFF';
+                            }
+
+                            return (
+                                <div className="card" key={item.id}
+                                    style={{
+                                        borderColor: borderColor,
+                                        backgroundColor: backgroundColor,
+                                    }}
+                                >
+                                    <div className="left">
+                                        <h3>{item.name}</h3>
+                                        <h1>
+                                            {index !== 2 && <span>$</span>}
+                                            {item.dollars}
+                                        </h1>
+                                        <h5 style={{ color: 'green' }}>🔺{item.percent} <span style={{ color: 'black' }} >% period of change</span> </h5>
+                                    </div>
+                                    <div className="right">
+                                        <img
+                                            className="icon"
+                                            style={{
+                                                border: `2px solid ${borderColor}`,
+                                                backgroundColor: backgroundColor,
+                                                padding: '2px',
+                                            }}
+                                            src={item.icon}
+                                            alt={item.name}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="right">
-                                    <img className='icon' src={item.icon} alt={item.name} />
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
+
+
                     </div>
                 </div>
                 <div className="footer">Footer</div>
