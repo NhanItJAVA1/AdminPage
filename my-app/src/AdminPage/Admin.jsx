@@ -35,6 +35,7 @@ function Admin() {
                 </div>
                 <div className="header">My Header</div>
                 <div className="content">
+                    <h3>Overview</h3>
                     <div className='overview'>
                         {data.map((item, index) => {
                             let borderColor;
@@ -55,12 +56,12 @@ function Admin() {
                                     }}
                                 >
                                     <div className="left">
-                                        <h3>{item.name}</h3>
-                                        <h1>
+                                        <p>{item.name}</p>
+                                        <p>
                                             {index !== 2 && <span>$</span>}
                                             {item.dollars}
-                                        </h1>
-                                        <h5 style={{ color: 'green' }}>🔺{item.percent} <span style={{ color: 'black' }} >% period of change</span> </h5>
+                                        </p>
+                                        <p style={{ color: 'green' }}>🔺{item.percent} <span style={{ color: 'black' }} >% period of change</span> </p>
                                     </div>
                                     <div className="right">
                                         <img
@@ -77,8 +78,6 @@ function Admin() {
                                 </div>
                             );
                         })}
-
-
                     </div>
                 </div>
                 <div className="footer">Footer</div>
