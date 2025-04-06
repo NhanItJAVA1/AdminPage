@@ -7,7 +7,7 @@
   grid-template-columns: auto 3fr;
   grid-template-rows: auto 1fr auto;
   gap: 1px;
-  background-color: #2196F3;
+  background-color: #a8a8a8;
   padding: 1px;
   height: 150vh;
   width: 100%;
@@ -15,7 +15,7 @@
 }
 
 .container>div {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255);
   padding: 1px;
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@
 
 .container>div.header {
   grid-area: content;
-  background-color: rgb(37, 235, 169);
+  background-color: rgb(255, 255, 255);
   height: 50px;
   display: flex;
   align-items: center;
@@ -37,10 +37,8 @@
 
 .container>div.content {
   grid-area: content1;
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: space-between; */
-  box-sizing: border-box;
+  /* flex-wrap: nowrap;
+  box-sizing: border-box; */
 }
 
 .container>div.footer {
@@ -52,48 +50,101 @@
 }
 
 
-.overview {
+/* .overview {
   height: 100%;
   display: flex;
   flex-direction: row;
   gap: 5px;
   justify-content: space-between;
   padding: 1px;
-}
+} */
 
-.card {
+/* .card {
   display: flex;
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 350px;
   height: 140px;
+  width: 300px;
   margin: 5px;
   overflow: hidden;
   color: black;
   padding: 2px;
-}
+} */
 
-.left {
+/* .left {
   width: 90%;
   justify-content: left;
   text-align: left;
   margin: 0px 0px 0px 2px;
   padding: 2px;
-}
+} */
 
-.left>:nth-child(2) {
+/* .left>:nth-child(2) {
   font-size: 20px;
   font-weight: bold;
-}
-
+} */
+/* 
 .icon {
   width: 32px;
   border-radius: 6px;
   border: 1px solid #F44B87FF;
-}
+} */
 
-.right {
+/* .right {
   padding: 2px;
   display: inline-block;
   margin-top: 0px;
+} */
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content h2 {
+  margin-bottom: 10px;
+}
+
+.popup-content form div {
+  margin-bottom: 10px;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup-content button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #0056b3;
 }

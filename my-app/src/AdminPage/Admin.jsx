@@ -1,28 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import './Admin.css';
+import '../index.css';
+import Overview from '../Overview/Overview.jsx';
+import Report from '../DetailsReport/Report.jsx';
 
-import './Admin.css'
-
-function Admin() {
-
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetch('https://67ecae53aa794fb3222e6d6e.mockapi.io/Overview')
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    }, []);
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
-
+const Admin = () => {
     return (
         <div>
             <div className="container">
@@ -34,56 +16,18 @@ function Admin() {
                     <a href="#">Link 3</a>
                 </div>
                 <div className="header">My Header</div>
-                <div className="content">
-                    <h3>Overview</h3>
-                    <div className='overview'>
-                        {data.map((item, index) => {
-                            let borderColor;
-                            let backgroundColor;
-                            if (index === 0) {
-                                borderColor = '#F44B87FF';
-                                backgroundColor = '#FEF0F5FF';
-                            } else if (index === 1 || index === 2) {
-                                borderColor = '#2B80FFFF';
-                                backgroundColor = '#F0F6FFFF';
-                            }
-
-                            return (
-                                <div className="card" key={item.id}
-                                    style={{
-                                        borderColor: borderColor,
-                                        backgroundColor: backgroundColor,
-                                    }}
-                                >
-                                    <div className="left">
-                                        <p>{item.name}</p>
-                                        <p>
-                                            {index !== 2 && <span>$</span>}
-                                            {item.dollars}
-                                        </p>
-                                        <p style={{ color: 'green' }}>🔺{item.percent} <span style={{ color: 'black' }} >% period of change</span> </p>
-                                    </div>
-                                    <div className="right">
-                                        <img
-                                            className="icon"
-                                            style={{
-                                                border: `2px solid ${borderColor}`,
-                                                backgroundColor: backgroundColor,
-                                                padding: '2px',
-                                            }}
-                                            src={item.icon}
-                                            alt={item.name}
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        })}
+                <div className="content p-2">
+                    <div>
+                        <Overview />
+                    </div>
+                    <div>
+                        <Report />
                     </div>
                 </div>
                 <div className="footer">Footer</div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Admin;
+export default Admin

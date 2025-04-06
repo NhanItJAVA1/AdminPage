@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
 import DataTable from 'react-data-table-component';
 
-const columns = [
+const columns = (handleEdit) => [
     {
         name: 'CUSTOMER NAME',
         selector: row => row.customer_name,
@@ -25,7 +24,14 @@ const columns = [
     },
     {
         name: '',
-        selector: row => <button className="btn btn-primary">Edit</button>,
+        selector: row => (
+            <button
+                className="btn btn-primary"
+                onClick={() => handleEdit(row)}
+            >
+                Edit
+            </button>
+        ),
     },
 ];
 
@@ -33,9 +39,10 @@ function Report() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedRow, setSelectedRow] = useState(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     useEffect(() => {
-        // Fetch dữ liệu từ API
         fetch('https://67ecae53aa794fb3222e6d6e.mockapi.io/report')
             .then(response => {
                 if (!response.ok) {
@@ -53,18 +60,103 @@ function Report() {
             });
     }, []);
 
+    const handleEdit = (row) => {
+        setSelectedRow(row);
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+
+    const saveChanges = () => {
+        const updatedData = data.map(item =>
+            item.id === selectedRow.id ? selectedRow : item
+        );
+        setData(updatedData);
+        closePopup();
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
+
     return (
         <div>
             <DataTable
-                columns={columns}
+                columns={columns(handleEdit)}
                 data={data}
                 selectableRows
+                striped
+                pointerOnHover
+                highlightOnHover
+                pagination
+                paginationComponentOptions={{
+                    rowsPerPageText: '',
+                    rangeSeparatorText: 'of',
+                    noRowsPerPage: true,
+                }}
             />
+
+            {/* Popup */}
+            {isPopupOpen && (
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <h2>Edit Customer</h2>
+                        {selectedRow && (
+                            <div>
+                                <form>
+                                    <div>
+                                        <label>Customer Name</label>
+                                        <input
+                                            type="text"
+                                            value={selectedRow.customer_name}
+                                            onChange={(e) => setSelectedRow({ ...selectedRow, customer_name: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Company</label>
+                                        <input
+                                            type="text"
+                                            value={selectedRow.company}
+                                            onChange={(e) => setSelectedRow({ ...selectedRow, company: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Order Value</label>
+                                        <input
+                                            type="text"
+                                            value={selectedRow.order_value}
+                                            onChange={(e) => setSelectedRow({ ...selectedRow, order_value: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Order Date</label>
+                                        <input
+                                            type="text"
+                                            value={selectedRow.order_date}
+                                            onChange={(e) => setSelectedRow({ ...selectedRow, order_date: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Status</label>
+                                        <input
+                                            type="text"
+                                            value={selectedRow.status}
+                                            onChange={(e) => setSelectedRow({ ...selectedRow, status: e.target.value })}
+                                        />
+                                    </div>
+                                </form>
+                                <div>
+                                    <button onClick={closePopup}>Close</button>
+                                    <button onClick={saveChanges}>Save Changes</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
 
-export default
-    Report;
+export default Report;
