@@ -7,5 +7,5 @@ import Report from './DetailsReport/Report.jsx'
 import Overview from './Overview/Overview.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <Admin />
+  <App />
 )
