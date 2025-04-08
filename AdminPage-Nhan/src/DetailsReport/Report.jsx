@@ -66,7 +66,7 @@ function Report({ setResultCount }) {
     const [error, setError] = useState(null);
     const [selectedRow, setSelectedRow] = useState(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [modalMode, setModalMode] = useState('edit'); // 'edit' hoặc 'add'
+    const [modalMode, setModalMode] = useState('edit');
 
     useEffect(() => {
         fetch('https://67ecae53aa794fb3222e6d6e.mockapi.io/report')
@@ -110,7 +110,6 @@ function Report({ setResultCount }) {
 
     const handleSave = () => {
         if (modalMode === 'edit') {
-            // Update user
             fetch(`https://67ecae53aa794fb3222e6d6e.mockapi.io/report/${selectedRow.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -127,7 +126,6 @@ function Report({ setResultCount }) {
                     alert('Có lỗi xảy ra khi cập nhật!');
                 });
         } else if (modalMode === 'add') {
-            // Add user
             fetch('https://67ecae53aa794fb3222e6d6e.mockapi.io/report', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -183,7 +181,7 @@ function Report({ setResultCount }) {
                     pointerOnHover
                     highlightOnHover
                     pagination
-                    paginationPerPage={10}
+                    paginationPerPage={8}
                     paginationRowsPerPageOptions={[10]}
                     noDataComponent="Không có dữ liệu"
                     customStyles={{

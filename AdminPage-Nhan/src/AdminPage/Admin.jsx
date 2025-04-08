@@ -13,7 +13,7 @@ import Teams from '../pages/Teams.jsx';
 import Analytics from '../pages/Analytics.jsx';
 import Messages from '../pages/Messages.jsx';
 import Intergations from '../pages/Intergations.jsx';
-
+import SideImage from '../assets/Side.svg';
 const Admin = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -106,6 +106,13 @@ const Admin = () => {
                             </li>
                         ))}
                     </ul>
+                    <div className="max-w-xs rounded-2xl bg-white p-4 shadow-lg border border-gray-200 text-center">
+                        <img src={SideImage} alt="Update illustration" className="mx-auto mb-4" />
+                        <h2 className="text-lg font-semibold text-gray-900 mb-2">V2.0 is available</h2>
+                        <button className="w-full rounded-xl border border-blue-500 px-4 py-2 text-blue-500 transition hover:bg-blue-50">
+                            Try now
+                        </button>
+                    </div>
                 </div>
                 <div className="header flex justify-between">
                     <div className="text-pink-600 font-bold text-lg justify-start">Dashboard</div>
