@@ -9,6 +9,11 @@ import what from '../assets/What.svg';
 import avatar from '../assets/react.svg';
 import search from '../assets/seach.png';
 import logo from '../assets/Logo.svg';
+import Project from '../pages/Project.jsx';
+import Teams from '../pages/Teams.jsx';
+import Analytics from '../pages/Analytics.jsx';
+import Messages from '../pages/Messages.jsx';
+import Intergations from '../pages/Intergations.jsx';
 
 const Admin = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -198,11 +203,17 @@ const Admin = () => {
                     <div>
                         <Overview />
                     </div>
-                    <div>
-                        <Report />
+                    <div className="mt-10 px-4 py-1">
+                        <Routes>
+                            <Route path="/" element={<Report />} />
+                            <Route path="/project" element={<Project />} />
+                            <Route path="/teams" element={<Teams />} />
+                            <Route path="/analytics" element={<Analytics />} />
+                            <Route path="/messages" element={<Messages />} />
+                            <Route path="/integration" element={<Intergations />} />
+                        </Routes>
                     </div>
                 </div>
-                <div className="footer">Footer</div>
             </div>
         </div>
     )
