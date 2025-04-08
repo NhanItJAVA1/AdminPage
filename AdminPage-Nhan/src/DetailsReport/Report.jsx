@@ -61,7 +61,7 @@ function Report() {
     }, []);
 
     const handleEdit = (row) => {
-        setSelectedRow(row);
+        setSelectedRow({ ...row });
         setIsPopupOpen(true);
     };
 
@@ -69,12 +69,24 @@ function Report() {
         setIsPopupOpen(false);
     };
 
-    const saveChanges = () => {
-        const updatedData = data.map(item =>
-            item.id === selectedRow.id ? selectedRow : item
-        );
-        setData(updatedData);
-        closePopup();
+    const handleSave = () => {
+        fetch(`https://67ecae53aa794fb3222e6d6e.mockapi.io/report/${selectedRow.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(selectedRow),
+        })
+            .then(res => res.json())
+            .then(updated => {
+                const newData = data.map(item => item.id === updated.id ? updated : item);
+                setData(newData);
+                setIsPopupOpen(false);
+            })
+            .catch(err => {
+                console.error('Update failed:', err);
+                alert('Có lỗi xảy ra khi cập nhật!');
+            });
     };
 
     if (loading) return <div>Loading...</div>;
@@ -146,9 +158,9 @@ function Report() {
                                         />
                                     </div>
                                 </form>
-                                <div>
-                                    <button onClick={closePopup}>Close</button>
-                                    <button onClick={saveChanges}>Save Changes</button>
+                                <div style={{ marginTop: '10px' }}>
+                                    <button onClick={closePopup} className="btn btn-secondary">Close</button>
+                                    <button onClick={handleSave} className="btn btn-success" style={{ marginLeft: '10px' }}>Save Changes</button>
                                 </div>
                             </div>
                         )}
