@@ -10,7 +10,7 @@ import Overview from './Overview/Overview.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <Admin />
     </BrowserRouter>
   </StrictMode>
 )
